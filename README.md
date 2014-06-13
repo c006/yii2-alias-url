@@ -47,11 +47,6 @@ Advanced **"config/main.php"**
             'urlManager' => [
                 'enablePrettyUrl' => TRUE,
                 'showScriptName'  => FALSE,
-                'rules'           => [
-                    [
-                        'class' => 'c006\url\assets\AppAliasUrl',
-                    ],
-                ],
             ],
         ],
 
@@ -96,7 +91,7 @@ Advanced **"config/main.php"**
             $parts = $this->createController($route);
             /* c006 -- Run AppAliasUrl on InvalidRouteException */
             if ( !is_array($parts) ) {
-                $route = AppAliasUrl::routeFailed($route);
+                $route = \c006\url\assets\AppAliasUrl::routeFailed($route);
                 if ( $route ) {
                     $parts = $this->createController($route);
                 }
@@ -105,6 +100,15 @@ Advanced **"config/main.php"**
             ...
             ...
         }
+
+
+**vendor/c006/yii2-alias-url/assets/AppAliasUrl.php**
+
+``public static $convertAll = TRUE;``
+
+If false any other links on the page will not use aliases.
+The private URL will used instead.
+
 
 Usage
 -----
