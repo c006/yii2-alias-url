@@ -1,7 +1,6 @@
 Yii2  Seo URL's
 ===================
 
-##[ Not ready for use yet, getting there ]##
 
 Installation
 ------------
@@ -24,7 +23,9 @@ to the require section of your `composer.json` file.
 
 
 
-Run this to setup the tables
+**Next** check that a database connection is setup
+
+**Run** this to setup the tables.
 
 ```
 $ yii migrate --migrationPath=@vendor/c006/yii2-alias-url/migrations
@@ -73,8 +74,8 @@ Advanced **"config/main.php"**
         ...
         }
         /* c006 :: AppAliasUrl */
-        if ( AppAliasUrl::$convertAll ) {
-            $route = AppAliasUrl::findAll($route);
+        if ( \c006\url\assets\AppAliasUrl::$convertAll ) {
+            $route = \c006\url\assets\AppAliasUrl::findAll($route);
         }
         /* End Code */
         if ($this->suffix !== null) {
@@ -106,9 +107,20 @@ Advanced **"config/main.php"**
 
 ``public static $convertAll = TRUE;``
 
-If false any other links on the page will not use aliases.
-The private URL will used instead.
+If false any other links on the page will skip AliasUrl.
 
+
+
+**.htaccess** [required]
+
+>
+    RewriteEngine on
+    RewriteBase /
+    # If a directory or a file exists, use the request directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    # Otherwise forward the request to index.php
+    RewriteRule . index.php
 
 Usage
 -----
