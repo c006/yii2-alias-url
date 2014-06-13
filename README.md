@@ -27,7 +27,7 @@ to the require section of your `composer.json` file.
 Run this to setup the tables
 
 ```
-$ yii migrate --migrationPath=@vendor\c006\yii2-alias-url\migrations
+$ yii migrate --migrationPath=@vendor/c006/yii2-alias-url/migrations
 ```
 
 Setup

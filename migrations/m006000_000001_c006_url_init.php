@@ -24,7 +24,7 @@
             );
             $this->createIndex("public_UNIQUE", '{{%alias_url}}', 'public', TRUE);
             /* Insert data */
-            $columns = [ "id", "private", "public" ];
+            $columns = [ "id", "private", "public", "absolute" ];
             $this->batchInsert('{{%alias_url}}', $columns, [
                     [ 1, 'alias-url', 'alias', 0 ],
                     [ 2, 'site/about', 'abc', 1 ],
