@@ -1,0 +1,144 @@
+<?php
+    /**
+     * Created by PhpStorm.
+     * User: user
+     * Date: 5/25/14
+     * Time: 10:55 PM
+     */
+    namespace c006\url\assets;
+
+    use Yii;
+
+    class AppAliasUrl
+    {
+
+        private static $key = 'alias-url';
+        private static $params = [ ];
+        private static $route_base = '';
+
+
+        static public function init()
+        {
+
+            Yii::trace('AppAliasUrl > init', 'JC');
+            $_SESSION[self::$key] = 0;
+        }
+
+
+        static public function run($route, $anchor, $pathInfo = '')
+        {
+
+            $return = '';
+            /** @var  $urlManager \yii\web\UrlManager */
+            $route = (!empty($route)) ? urldecode($route) : '';
+            Yii::trace('AppAliasUrl > ' . $route, 'JC');
+            if ( !isset($_SESSION[self::$key]) || !$_SESSION[self::$key] ) {
+                if ( !empty($route) || !empty($pathInfo) ) {
+                    $return = self::first($route, $anchor, $pathInfo);
+                }
+            }
+            else {
+                $return = self::more($route, $anchor, $pathInfo);
+            }
+            //            die($return);
+            //            die("Path: {$route}/{$pathInfo}");
+            $_SESSION[self::$key] = 1;
+
+            return $return;
+        }
+
+
+        static private function more($route, $anchor, $pathInfo = '')
+        {
+
+            $sql = "";
+            Yii::trace('AppAliasUrl > more ### ' . $route . ' : ' . $anchor, 'JC');
+            if ( strpos($route, '?r=') !== FALSE ) {
+                $uri = self::getParams($route);
+            }
+            if ( empty($uri) && isset($_GET['r']) ) {
+                $uri = $_GET['r'];
+            }
+            //                self::$route_base = self::getBaseRoute($uri);
+            if ( !empty($uri) ) {
+                $sql = "SELECT * FROM `alias_url` WHERE UPPER(`private`) LIKE ('" . strtoupper($uri) . "')";
+                $row = Yii::$app->db->createCommand($sql)->queryOne();
+                if ( $row !== FALSE ) {
+                    $route = $row['public'];
+                }
+            }
+            else
+                Yii::trace('AppAliasUrl > NO :: ' . $route, 'JC');
+            if ( !empty($pathInfo) ) {
+                $sql = "SELECT * FROM `alias_url` WHERE UPPER(`public`) LIKE ('" . strtoupper($pathInfo) . "%')";
+                $row = Yii::$app->db->createCommand($sql)->queryOne();
+                if ( $row !== FALSE ) {
+                    $route = $row['public'];
+                }
+            }
+            Yii::trace('AppAliasUrl > sql :: ' . $sql, 'JC');
+            Yii::trace('AppAliasUrl > more > ' . $route . $anchor, 'JC');
+
+            return preg_replace('/\/+/', '/', $route . $anchor);
+        }
+
+
+        private
+        static function first($route, $anchor, $pathInfo = '')
+        {
+
+            $return = '';
+            $uri    = '';
+            if ( isset($_GET['r']) ) {
+                $_GET['r'] = $uri;
+                $return    = '/index.php?r=';
+            }
+            if ( !empty($route) ) {
+                $uri = $route;
+            }
+            if ( !empty($pathInfo) ) {
+                $uri = $pathInfo;
+            }
+            if ( $uri ) {
+                $sql = "SELECT * FROM `alias_url` WHERE UPPER(`public`) LIKE ('" . strtoupper($uri) . "%');";
+                $row = Yii::$app->db->createCommand($sql)->queryOne();
+                if ( $row !== FALSE ) {
+                    $route = $return . $row['private'];
+                }
+            }
+            Yii::trace('AppAliasUrl > first > ' . $route . $anchor, 'JC');
+
+            return $route . $anchor;
+        }
+
+
+        private static function getParams($route)
+        {
+
+            Yii::trace('AppAliasUrl > request ', 'JC');
+            list($base, $query_string) = explode('?', $route);
+            foreach (explode('&', $query_string) as $param) {
+                if ( strpos($param, 'r=') !== FALSE ) {
+                    $param                   = explode('=', $param);
+                    self::$params[$param[0]] = $param[1];
+                }
+            }
+
+            return (isset(self::$params['r'])) ? self::$params['r'] : '';
+        }
+
+
+        private static function getBaseRoute($route)
+        {
+
+            if ( strpos($route, '/') ) {
+                $route = explode('/', $route);
+
+                return $route[0];
+            }
+
+            return $route;
+        }
+    }
+
+

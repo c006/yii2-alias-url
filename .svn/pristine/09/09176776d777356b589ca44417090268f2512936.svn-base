@@ -1,0 +1,58 @@
+<?php
+
+    use yii\helpers\Html;
+    use yii\grid\GridView;
+    use yii\web\UrlManager;
+    use c006\url\models\AliasUrl;
+
+    use c006\url\assets\AppAliasUrlHelper;
+
+    /**
+     * @var yii\web\View                  $this
+     * @var yii\data\ActiveDataProvider   $dataProvider
+     * @var c006\url\models\AliasUrlSearch $searchModel
+     */
+
+    $this->title = 'Seo Urls';
+    $this->params[ 'breadcrumbs' ][ ] = $this->title;
+
+?>
+<div class="alias-url-index">
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <p>
+        <?= Html::a('Create Seo Urls', AppAliasUrlHelper::createLink('create'), [ 'class' => 'btn btn-success' ]) ?>
+    </p>
+
+
+    <?=
+        GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel'  => $searchModel,
+                'columns'      => [
+                    [ 'class' => 'yii\grid\SerialColumn' ],
+                    'id:url',
+                    'private',
+                    [ 'class' => 'yii\grid\CheckboxColumn' ],
+                    'public',
+                    [
+                        'class'    => 'yii\grid\ActionColumn',
+                        'template' => '{update} {delete}',
+                        'buttons'  => [
+                            'update' => function ($url, $model) {
+                                    //                                    print_r($model);
+                                    //                                    die("URL: ". $url);
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                            'title'     => Yii::t('yii', 'Update'),
+                                            'data-pjax' => '0',
+                                        ]
+                                    );
+                                }
+                        ],
+                    ],
+                ],
+            ]
+        );
+    ?>
+</div>

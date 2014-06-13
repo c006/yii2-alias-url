@@ -1,0 +1,81 @@
+<?php
+    use yii\db\Schema;
+
+    /**
+     * Class m140526_232402_c006_url_init
+     */
+    class m006000_000001_c006_url_init extends \yii\db\Migration
+    {
+        /**
+         * @var string
+         */
+        public $table_1 = 'alias_url';
+        /**
+         * @var string
+         */
+        public $table_2 = 'alias_url_pages';
+
+
+        /**
+         * @return bool
+         */
+        public function up()
+        {
+            /*
+            *
+            Table 1 */
+            $this->createTable($this->table_1, [
+                    'id' => "INT(10) UNSIGNED NOT NULL AUTO_INCREMENT",
+                    'private'    => "VARCHAR(100) NOT NULL",
+                    'public'     => "VARCHAR(100) NOT NULL",
+                    0            => 'PRIMARY KEY (`id`)'
+                ]
+            );
+            $this->createIndex("public_UNIQUE", $this->table_1, 'public', TRUE);
+            /* Insert data */
+            $columns = [ "id", "private", "public" ];
+            $this->batchInsert($this->table_1, $columns, [
+                    [ 1, 'alias-url/default/index', 'seo-admin' ],
+                    [ 2, 'alias-url/default/create', 'seo-admin/create' ],
+                    [ 3, 'alias-url/default/update', 'seo-admin/update' ],
+                    [ 4, 'alias-url/default/delete', 'seo-admin/delete' ],
+                    [ 5, 'site/about', 'my-about' ],
+                ]
+            );
+            /*
+            *
+            Table 2 */
+            $this->createTable($this->table_2, [
+                    'id' => "INT(10) UNSIGNED NOT NULL AUTO_INCREMENT",
+                    'name'            => "VARCHAR(45) NOT NULL",
+                    0                 => 'PRIMARY KEY (`id`)'
+                ]
+            );
+            /* Insert data */
+            $this->createIndex("name_UNIQUE", $this->table_2, 'name', TRUE);
+            $columns = [ "id", "name" ];
+            $this->batchInsert($this->table_2, $columns, [
+                    [ 1, 'admin' ],
+                    [ 2, 'index' ],
+                    [ 3, 'create' ],
+                    [ 4, 'update' ],
+                    [ 5, 'delete' ],
+                ]
+            );
+
+            return TRUE;
+        }
+
+
+        /**
+         * @return bool
+         */
+        public function down()
+        {
+            echo "m006000_000001_c006_url_init reverted.\n";
+            $this->dropTable($this->table_1);
+            $this->dropTable($this->table_2);
+
+            return TRUE;
+        }
+    }

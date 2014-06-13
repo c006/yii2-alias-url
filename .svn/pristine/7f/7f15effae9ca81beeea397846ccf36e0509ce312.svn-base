@@ -1,0 +1,103 @@
+Yii2  Seo URL's
+===================
+
+##[ Not ready for use yet, getting there ]##
+
+Installation
+------------
+
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+Either run
+
+```
+php composer.phar require --prefer-dist "c006/yii2-alias-url" "dev-master"
+```
+
+or add
+
+```
+"c006/yii2-alias-url": "dev-master"
+```
+
+to the require section of your `composer.json` file.
+
+
+
+Run this to setup the tables
+
+$ yii migrate --migrationPath=[**ABSOLUTE PATH**]\vendor\c006\yii2-alias-url\migrations
+
+
+Setup
+-----
+
+Basic **"config/web.php"**
+
+Advanced **"config/main.php"**
+
+>
+        'components' => [
+            ...
+            ...
+            ...
+            /*  Match this */
+            'urlManager' => [
+                'enablePrettyUrl' => TRUE,
+                'rules'           => [
+                    [
+                        'class' => 'c006\url\assets\AppAliasUrl',
+                    ],
+                ],
+            ],
+        ],
+
+
+
+Usage
+-----
+
+Url: /seo-admin
+
+
+
+Comments / Suggestions
+--------------------
+
+Please provide any helpful feedback or requests.
+
+Thanks.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
