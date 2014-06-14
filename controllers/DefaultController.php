@@ -4,10 +4,10 @@
 
     use c006\url\models\AliasUrl;
     use c006\url\models\AliasUrlSearch;
+    use Yii;
     use yii\filters\VerbFilter;
     use yii\web\Controller;
     use yii\web\NotFoundHttpException;
-    use Yii;
 
     /**
      * AliasUrlController implements the CRUD actions for AliasUrl model.
@@ -75,7 +75,7 @@
 
             $model = new AliasUrl;
             if ( $model->load(Yii::$app->request->post()) && $model->save() ) {
-                return $this->redirect([ 'view', 'id' => $model->id ]);
+                return $this->redirect([ 'index' ]);
             }
             else {
                 return $this->render('create', [
@@ -99,7 +99,7 @@
 
             $model = $this->findModel($id);
             if ( $model->load(Yii::$app->request->post()) && $model->save() ) {
-                return $this->redirect([ 'view', 'id' => $model->id ]);
+                return $this->redirect([ 'index' ]);
             }
             else {
                 return $this->render('update', [

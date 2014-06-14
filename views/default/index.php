@@ -30,8 +30,8 @@
                     [ 'class' => 'yii\grid\SerialColumn' ],
                     'id:url',
                     'private',
-                    [ 'class' => 'yii\grid\CheckboxColumn' ],
                     'public',
+                    'absolute',
                     [
                         'class'    => 'yii\grid\ActionColumn',
                         'template' => '{update} {delete}',

@@ -19,6 +19,7 @@
          */
         public static function tableName()
         {
+
             return 'alias_url';
         }
 
@@ -28,6 +29,7 @@
          **/
         static public function primaryKey()
         {
+
             return [ 'id' ];
         }
 
@@ -37,6 +39,7 @@
          */
         public function rules()
         {
+
             return [
                 [ [ 'private', 'public' ], 'required' ],
                 [ [ 'private', 'public' ], 'string', 'max' => 140 ],
@@ -50,10 +53,12 @@
          */
         public function attributeLabels()
         {
+
             return [
-                'id'      => 'ID',
-                'private' => 'Private',
-                'public'  => 'Public',
+                'id'       => 'ID',
+                'private'  => 'Private',
+                'public'   => 'Public',
+                'absolute' => 'Absolute',
             ];
         }
     }
