@@ -41,7 +41,7 @@
         {
 
             return [
-                [ [ 'private', 'public' ], 'required' ],
+                [ [ 'private', 'public', 'absolute' ], 'required' ],
                 [ [ 'private', 'public' ], 'string', 'max' => 140 ],
                 [ [ 'public' ], 'unique' ]
             ];
