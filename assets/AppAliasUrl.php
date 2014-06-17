@@ -41,12 +41,7 @@
                 $sql       = "SELECT * FROM `alias_url` WHERE UPPER(`public`) LIKE ('" . strtoupper($baseRoute) . "');";
                 $row       = Yii::$app->db->createCommand($sql)->queryOne();
                 if ( $row !== FALSE ) {
-                    if ( $row['absolute'] ) {
-                        return $row['private'];
-                    }
-                    else {
-                        return $row['private'] . '/' . self::cleanRoute($route);
-                    }
+                    return $row['private'];
                 }
             }
             //Uncomment to trace
@@ -68,13 +63,7 @@
                 $sql       = "SELECT * FROM `alias_url` WHERE UPPER(`private`) LIKE ('" . strtoupper($baseRoute) . "');";
                 $row       = Yii::$app->db->createCommand($sql)->queryOne();
                 if ( $row !== FALSE ) {
-                    if ( $row['absolute'] ) {
-                        return $row['public'];
-                    }
-                    else {
-                        return $row['public'] . '/' . self::cleanRoute($route);
-                    }
-
+                    return $row['public'];
                 }
             }
             //Uncomment to trace

@@ -18,16 +18,15 @@
                     'id'       => 'INT(10) UNSIGNED NOT NULL AUTO_INCREMENT',
                     'private'  => 'VARCHAR(100) NOT NULL',
                     'public'   => 'VARCHAR(100) NOT NULL',
-                    'absolute' => 'TINYINT(1) UNSIGNED NOT NULL',
                     0          => 'PRIMARY KEY (`id`)'
                 ], $tableOptions
             );
             $this->createIndex("public_UNIQUE", '{{%alias_url}}', 'public', TRUE);
             /* Insert data */
-            $columns = [ "id", "private", "public", "absolute" ];
+            $columns = [ "id", "private", "public" ];
             $this->batchInsert('{{%alias_url}}', $columns, [
-                    [ 1, 'alias-url', 'alias', 0 ],
-                    [ 2, 'site/about', 'abc', 1 ],
+                    [ 1, 'alias-url', 'alias' ],
+                    [ 2, 'site/about', 'abc' ],
                 ]
             );
 

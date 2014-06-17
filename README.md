@@ -145,31 +145,8 @@ Go to:
 >
     public => abc
     private => site/about
-    absolute => 1
 
 Now `/abc` will display `site/about`
-
-
-**Non absolute example:**
-
-Actual URL: http:://my-domain/site/about
-
-Alias URI: http:://my-domain/about
-
-Go to:
-
-`/alias`
-
-`click > create url`
-
->
-    public => about
-    private => site
-    absolute => 0
-
-Now `/about` will display `site/about`
-
-
 
 
 Comments / Suggestions / Help
@@ -178,37 +155,5 @@ Comments / Suggestions / Help
 Use the issue ticket to provide any helpful feedback, requests or questions.
 
 Thanks.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

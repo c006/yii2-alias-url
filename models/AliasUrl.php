@@ -41,7 +41,7 @@
         {
 
             return [
-                [ [ 'private', 'public', 'absolute' ], 'required' ],
+                [ [ 'private', 'public' ], 'required' ],
                 [ [ 'private', 'public' ], 'string', 'max' => 140 ],
                 [ [ 'public' ], 'unique' ]
             ];
@@ -58,7 +58,6 @@
                 'id'       => 'ID',
                 'private'  => 'Private',
                 'public'   => 'Public',
-                'absolute' => 'Absolute',
             ];
         }
     }

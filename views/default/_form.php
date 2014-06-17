@@ -17,8 +17,6 @@
 
     <?= $form->field($model, 'public')->textInput([ 'maxlength' => 140 ]) ?>
 
-    <?= $form->field($model, 'absolute')->checkbox([ 'uncheck' => 0 ], TRUE) ?>
-
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', [ 'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary' ]) ?>
     </div>
