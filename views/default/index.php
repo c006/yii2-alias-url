@@ -31,7 +31,6 @@
                     'id:url',
                     'private',
                     'public',
-                    'absolute',
                     [
                         'class'    => 'yii\grid\ActionColumn',
                         'template' => '{update} {delete}',
