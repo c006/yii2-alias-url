@@ -127,6 +127,7 @@ Usage
 
 ###http:// ___Your_Domain___ /alias###
 
+**Important:** ``'private' must be a controller path``
 
 **Example usage:**
 
@@ -167,6 +168,8 @@ Go to:
     absolute => 0
 
 Now `/about` will display `site/about`
+
+
 
 
 Comments / Suggestions / Help
