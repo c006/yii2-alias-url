@@ -10,7 +10,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist "c006/yii2-alias-url" "dev-master"
+php composer.phar require --prefer-source "c006/yii2-alias-url" "dev-master"
 ```
 
 or add
