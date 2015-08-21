@@ -1,18 +1,24 @@
 {
-    "name"       : "c006/yii2-alias-url",
-    "description": "Supports alias URL's. AKA seo URL's",
-    "type"       : "yii2-extension",
-    "keywords"   : ["yii2", "extension", "widgets", "seo", "url"],
-    "license"    : "MIT",
-    "authors"    : [
-        {
-            "name" : "Jon Chambers",
-            "email": "jchambers.dev@gmail.com"
-        }
-    ],
-    "autoload"   : {
-        "psr-4": {
-            "c006\\url\\": ""
-        }
+  "name": "c006/yii2-alias-url",
+  "description": "Supports alias URL's. AKA seo URL's",
+  "type": "yii2-extension",
+  "keywords": [
+    "yii2",
+    "extension",
+    "widgets",
+    "seo",
+    "url"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jon Chambers",
+      "email": "jchambers.dev@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "c006\\url\\": ""
+    }
+  }
 }
