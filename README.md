@@ -4,6 +4,8 @@ Yii2  Seo URL's
 
 **Updated August, 2015**
 
+**Hold off downloading, found a couple of issues**
+
 It does not work the same as the previous versions.
 
 + Do not use pretty url.
