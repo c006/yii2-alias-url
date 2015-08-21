@@ -2,6 +2,15 @@ Yii2  Seo URL's
 ===================
 
 
+**Updated August, 2015**
+
+It does not work the same as the previous versions.
+
++ Do not use pretty url.
+
++ ?r=site/about - still works along with the alias
+
+
 Installation
 ------------
 
@@ -44,9 +53,8 @@ Advanced **"config/main.php"**
             ...
             ...
             ...
-            /*  Match this */
             'urlManager' => [
-                'enablePrettyUrl' => TRUE,
+                'enablePrettyUrl' => FALSE,
                 'showScriptName'  => FALSE,
             ],
         ],
@@ -57,83 +65,40 @@ Advanced **"config/main.php"**
             ...
             ...
             ...
-            'alias-url' => [
+            'alias' => [
                 'class' => 'c006\url\Module',
+                'is_frontend' => {TRUE/FALSE}
             ],
         ],
 
 
-**vendor/yiisoft/yii2/web/UrlManager.php**
 
+
+**Do not use `.htaccess`**
+ 
+**Use Mod_Rewrite in your host / virtual host file
 >
-    /* Near line 293 */
-    public function createUrl($params)
-    {
-        ...
-        ...
-        ...
-        }
-        /* c006 :: AppAliasUrl */
-        if ( \c006\url\assets\AppAliasUrl::$convertAll ) {
-            $route = \c006\url\assets\AppAliasUrl::findAll($route);
-        }
-        /* End Code */
-        if ($this->suffix !== null) {
-            $route .= $this->suffix;
-        }
-    }
-
-**vendor/yiisoft/yii2/base/Module.php**
-
->
-        /* Near line 421 */
-        public function runAction($route, $params = [ ])
-        {
-            $parts = $this->createController($route);
-            /* c006 -- Run AppAliasUrl on InvalidRouteException */
-            if ( !is_array($parts) ) {
-                $route = \c006\url\assets\AppAliasUrl::routeFailed($route);
-                if ( $route ) {
-                    $parts = $this->createController($route);
-                }
-            }
-            ...
-            ...
-            ...
-        }
-
-
-**vendor/c006/yii2-alias-url/assets/AppAliasUrl.php**
-
-``public static $convertAll = TRUE;``
-
-If false any other links on the page will skip AliasUrl.
+    <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteLog "/var/log/apache2/rewrite.log"
+        RewriteLogLevel 0
+        RewriteCond %{REQUEST_FILENAME} -f [OR]
+        RewriteCond %{REQUEST_FILENAME} -d
+        RewriteRule ^ - [L]
+        RewriteRule (assets|images|css|videos)($|/) - [L]
+        RewriteCond %{REQUEST_URI} !^/index
+        RewriteRule (.*) /index.php$1
+        RewriteRule . /index.php [L]
+    </IfModule>
+ 
 
 
 
-**.htaccess** [required]
+This goes for frontend and backend if using advanced.
 
->
-    RewriteEngine on
-    RewriteBase /
-    # If a directory or a file exists, use the request directly
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    # Otherwise forward the request to index.php
-    RewriteRule . index.php
 
 Usage
 -----
-
-###http:// ___Your_Domain___ /alias###
-
-**Important:** ``'private' must be a controller path``
-
-**Example usage:**
-
-Actual URL: http:://my-domain/site/about
-
-Alias URI: http:://my-domain/abc
 
 
 Go to:
@@ -147,6 +112,12 @@ Go to:
     private => site/about
 
 Now `/abc` will display `site/about`
+
+Note private can have a query string.
+>
+    public => abc
+    private => site/about?id=123
+
 
 
 Comments / Suggestions / Help
