@@ -130,6 +130,9 @@ class UrlManager extends Component
     private $_hostInfo;
     private $_ruleCache;
 
+    /* ~ C006 */
+    private $query_string = '';
+
 
     /**
      * Initializes UrlManager.
@@ -263,6 +266,7 @@ class UrlManager extends Component
 
             return [$pathInfo, []];
         } else {
+
             Yii::trace('Pretty URL not enabled. Using default URL parsing logic.', __METHOD__);
             $route = $request->getQueryParam($this->routeParam, '');
 
@@ -272,14 +276,16 @@ class UrlManager extends Component
 
             /* ~ C006 UPDATE */
 //
+            $array_qs = [];
             $uri = $_SERVER['REQUEST_URI'];
             $qs = '';
             if (stripos($uri, '?') != FALSE) {
                 list($uri, $qs) = explode('?', $_SERVER['REQUEST_URI']);
+                $qs = urldecode($qs);
             }
-            $uri = preg_replace('/[^0-9|a-z|-|_|\/]/', '', strtolower(rtrim($uri, '/')));
+            $uri = preg_replace('/[^0-9|a-z|-|_|\/|\.]/', '', strtolower(rtrim($uri, '/')));
 
-            if (TRUE && $uri) {
+            if (TRUE && $uri && strpos($uri, 'index.php') == FALSE) {
                 $model = AliasUrl::find()
                     ->where(['public' => $uri])
                     ->andWhere(['is_frontend' => $this->is_frontend])
@@ -287,45 +293,60 @@ class UrlManager extends Component
                     ->asArray()
                     ->one();
 
-//                print_r($model); exit;
-
                 if (sizeof($model)) {
-                    $array_qs = [];
                     $private = $model['private'];
                     if (stripos($private, '?') != FALSE) {
                         list($private, $qs2) = explode('?', $private);
                         $qs .= $qs2;
                     }
-                    if (stripos($qs, '&') != FALSE) {
-                        foreach (explode('&', $qs) as $item) {
-                            if (stripos($item, '=') != FALSE) {
-                                list($k, $v) = explode('=', $item);
-                                $array_qs[ $k ] = $v;
-                            }
-                        }
-                    } else {
-                        if (stripos($qs, '=') != FALSE) {
-                            list($k, $v) = explode('=', $qs);
-                            $array_qs[ $k ] = $v;
-                        }
-                    }
 
-                    Yii::$app->request->setQueryParams($array_qs);
+                    $array_qs = self::queryStringToArray($qs);
 
 //                    print_r($_SERVER);
 //                    echo PHP_EOL;
 //                    print_r($model);
 //                    echo PHP_EOL;
 //                    print_r($array_qs);
+//                    echo PHP_EOL;
+//                    echo $private;
 //                    exit;
 
-                    return [(string)$private, $array_qs];
+                    return ["" . $private, $array_qs];
+                }
+            } else {
+                $array_qs = self::queryStringToArray($qs);
+                if (isset($array_qs['r'])) {
+                    $route = $array_qs['r'];
+                    unset($array_qs['r']);
                 }
             }
 
-            return [(string)$route, []];
+            return ["" . $route, $array_qs];
         }
     }
+
+
+    private function queryStringToArray($qs)
+    {
+
+        $array = [];
+        if (stripos($qs, '&') != FALSE) {
+            foreach (explode('&', $qs) as $item) {
+                if (stripos($item, '=') != FALSE) {
+                    list($k, $v) = explode('=', $item);
+                    $array[ $k ] = $v;
+                }
+            }
+        } else {
+            if (stripos($qs, '=') != FALSE) {
+                list($k, $v) = explode('=', $qs);
+                $array[ $k ] = $v;
+            }
+        }
+
+        return $array;
+    }
+
 
     /**
      * Creates a URL using the given route and query parameters.
