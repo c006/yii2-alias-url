@@ -283,7 +283,7 @@ class UrlManager extends Component
                 list($uri, $qs) = explode('?', $_SERVER['REQUEST_URI']);
                 $qs = urldecode($qs);
             }
-            $uri = preg_replace('/[^0-9|a-z|-|_|\/|\.]/', '', strtolower(rtrim($uri, '/')));
+            $uri = preg_replace('/[^0-9|a-z|\-|_|\/|\.]/', '', strtolower(rtrim($uri, '/')));
 
             if (TRUE && $uri && strpos($uri, 'index.php') == FALSE) {
                 $model = AliasUrl::find()
