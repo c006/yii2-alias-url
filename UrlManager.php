@@ -149,7 +149,7 @@ class UrlManager extends Component
         }
         if ($this->cache instanceof Cache) {
             $cacheKey = __CLASS__;
-            $hash = md5(json_encode($this->rules));
+            $hash     = md5(json_encode($this->rules));
             if (($data = $this->cache->get($cacheKey)) !== FALSE && isset($data[1]) && $data[1] === $hash) {
                 $this->rules = $data[0];
             } else {
@@ -169,7 +169,7 @@ class UrlManager extends Component
      *
      * Note that if [[enablePrettyUrl]] is false, this method will do nothing.
      *
-     * @param array $rules    the new rules to be added. Each array element represents a single rule declaration.
+     * @param array   $rules the new rules to be added. Each array element represents a single rule declaration.
      *                        Please refer to [[rules]] for the acceptable rule format.
      * @param boolean $append whether to add the new rules by appending them to the end of the existing rules.
      */
@@ -198,7 +198,7 @@ class UrlManager extends Component
     protected function buildRules($rules)
     {
         $compiledRules = [];
-        $verbs = 'GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS';
+        $verbs         = 'GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS';
         foreach ($rules as $key => $rule) {
             if (is_string($rule)) {
                 $rule = ['route' => $rule];
@@ -277,8 +277,8 @@ class UrlManager extends Component
             /* ~ C006 UPDATE */
 //
             $array_qs = [];
-            $uri = $_SERVER['REQUEST_URI'];
-            $qs = '';
+            $uri      = $_SERVER['REQUEST_URI'];
+            $qs       = '';
             if (stripos($uri, '?') != FALSE) {
                 list($uri, $qs) = explode('?', $_SERVER['REQUEST_URI']);
                 $qs = urldecode($qs);
@@ -286,6 +286,7 @@ class UrlManager extends Component
             $uri = preg_replace('/[^0-9|a-z|\-|_|\/|\.]/', '', strtolower(rtrim($uri, '/')));
 
             if (TRUE && $uri && strpos($uri, 'index.php') == FALSE) {
+
                 $model = AliasUrl::find()
                     ->where(['public' => $uri])
                     ->andWhere(['is_frontend' => $this->is_frontend])
@@ -460,7 +461,7 @@ class UrlManager extends Component
      *
      * @param string|array $params use a string to represent a route (e.g. `site/index`),
      *                             or an array to represent a route with query parameters (e.g. `['site/index', 'param1' => 'value1']`).
-     * @param string $scheme       the scheme to use for the url (either `http` or `https`). If not specified
+     * @param string       $scheme the scheme to use for the url (either `http` or `https`). If not specified
      *                             the scheme of the current request will be used.
      *
      * @return string the created URL
@@ -469,7 +470,7 @@ class UrlManager extends Component
     public function createAbsoluteUrl($params, $scheme = NULL)
     {
         $params = (array)$params;
-        $url = $this->createUrl($params);
+        $url    = $this->createUrl($params);
         if (strpos($url, '://') === FALSE) {
             $url = $this->getHostInfo() . $url;
         }

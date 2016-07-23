@@ -48,7 +48,7 @@ class DefaultController extends Controller
     public function actionIndex()
     {
 
-        $searchModel = new AliasUrlSearch();
+        $searchModel  = new AliasUrlSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [

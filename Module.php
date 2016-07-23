@@ -1,15 +1,16 @@
 <?php
 
 namespace c006\url;
+
 class Module extends \yii\base\Module
 {
 
     public $controllerNamespace = 'c006\url\controllers';
 
+    public $is_frontend = TRUE;
 
     public function init()
     {
-
         parent::init();
     }
 
