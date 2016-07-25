@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /**
- * @var yii\web\View $this
+ * @var yii\web\View             $this
  * @var c006\url\models\AliasUrl $model
  */
 
-$this->title = $model->id;
+$this->title                   = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Alias URL', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

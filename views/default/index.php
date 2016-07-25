@@ -4,12 +4,12 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
- * @var yii\web\View $this
- * @var yii\data\ActiveDataProvider $dataProvider
+ * @var yii\web\View                   $this
+ * @var yii\data\ActiveDataProvider    $dataProvider
  * @var c006\url\models\AliasUrlSearch $searchModel
  */
 
-$this->title = 'Alias URLs';
+$this->title                   = 'Alias URLs';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Add URL', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Add URL', ['create'], ['class' => 'btn btn-secondary']) ?>
     </p>
 
     <?=

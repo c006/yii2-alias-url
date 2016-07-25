@@ -4,9 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
- * @var yii\web\View $this
+ * @var yii\web\View                   $this
  * @var c006\url\models\AliasUrlSearch $model
- * @var yii\widgets\ActiveForm $form
+ * @var yii\widgets\ActiveForm         $form
  */
 ?>
 

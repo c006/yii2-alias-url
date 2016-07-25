@@ -16,11 +16,11 @@ class m000000_000000_c006_url extends \yii\db\Migration
      */
     public function up()
     {
-        $tables = Yii::$app->db->schema->getTableNames();
-        $dbType = $this->db->driverName;
-        $tableOptions_mysql = "CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB";
-        $tableOptions_mssql = "";
-        $tableOptions_pgsql = "";
+        $tables              = Yii::$app->db->schema->getTableNames();
+        $dbType              = $this->db->driverName;
+        $tableOptions_mysql  = "CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB";
+        $tableOptions_mssql  = "";
+        $tableOptions_pgsql  = "";
         $tableOptions_sqlite = "";
         /* MYSQL */
         if (!in_array('alias_url', $tables)) {

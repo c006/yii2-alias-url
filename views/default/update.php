@@ -3,15 +3,15 @@
 use yii\helpers\Html;
 
 /**
- * @var yii\web\View $this
+ * @var yii\web\View             $this
  * @var c006\url\models\AliasUrl $model
  */
 
-$this->title = 'Update URL: ' . ' ' . $model->id;
+$this->title                   = 'Update URL: ' . ' ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Alias URL', 'url' => ['index']];
 $this->params['breadcrumbs'][] = [
     'label' => $model->id,
-    'url'   => ['view', 'id' => $model->id]
+    'url'   => ['view', 'id' => $model->id],
 ];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

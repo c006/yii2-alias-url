@@ -8,9 +8,9 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "alias_url".
  *
- * @property string $id
- * @property string $private
- * @property string $public
+ * @property string  $id
+ * @property string  $private
+ * @property string  $public
  * @property integer $is_frontend
  */
 class AliasUrl extends ActiveRecord
@@ -44,7 +44,7 @@ class AliasUrl extends ActiveRecord
         return [
             [['private', 'public', 'is_frontend'], 'required'],
             [['private', 'public'], 'string', 'max' => 140],
-            [['public'], 'unique']
+            [['public'], 'unique'],
         ];
     }
 

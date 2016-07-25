@@ -29,7 +29,7 @@ class AliasUrlSearch extends AliasUrl
 
     public function search($params)
     {
-        $query = AliasUrl::find();
+        $query        = AliasUrl::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
