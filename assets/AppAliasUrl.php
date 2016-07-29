@@ -39,8 +39,8 @@ class AppAliasUrl
 
         if (!empty($route)) {
             $baseRoute = self::getBaseRoute($route);
-            $sql       = "SELECT * FROM `alias_url` WHERE UPPER(`public`) LIKE ('" . strtoupper($baseRoute) . "');";
-            $row       = Yii::$app->db->createCommand($sql)->queryOne();
+            $sql = "SELECT * FROM `alias_url` WHERE UPPER(`public`) LIKE ('" . strtoupper($baseRoute) . "');";
+            $row = Yii::$app->db->createCommand($sql)->queryOne();
             if ($row !== FALSE) {
                 return $row['private'];
             }
@@ -78,8 +78,8 @@ class AppAliasUrl
 
         if (!empty($route)) {
             $baseRoute = self::getBaseRoute($route);
-            $sql       = "SELECT * FROM `alias_url` WHERE UPPER(`private`) LIKE ('" . strtoupper($baseRoute) . "');";
-            $row       = Yii::$app->db->createCommand($sql)->queryOne();
+            $sql = "SELECT * FROM `alias_url` WHERE UPPER(`private`) LIKE ('" . strtoupper($baseRoute) . "');";
+            $row = Yii::$app->db->createCommand($sql)->queryOne();
             if ($row !== FALSE) {
                 return $row['public'];
             }
@@ -98,7 +98,7 @@ class AppAliasUrl
             unset($route[0]);
             $key = array_search('index', $route);
             if ($key) {
-                unset($route[ $key ]);
+                unset($route[$key]);
             }
 
             return join('/', $route);
@@ -124,9 +124,9 @@ class AppAliasUrl
             return $model['id'];
         }
 
-        $model              = new AliasUrl();
-        $model->public      = $public;
-        $model->private     = $private;
+        $model = new AliasUrl();
+        $model->public = $public;
+        $model->private = $private;
         $model->is_frontend = $is_frontend;
 
         if ($model->isNewRecord && $model->validate() && $model->save()) {
@@ -156,9 +156,9 @@ class AppAliasUrl
             }
         }
 
-        $model              = new AliasUrl();
-        $model->public      = $public;
-        $model->private     = $private;
+        $model = new AliasUrl();
+        $model->public = $public;
+        $model->private = $private;
         $model->is_frontend = $is_frontend;
 
         if ($model->isNewRecord && $model->validate() && $model->save()) {
@@ -182,6 +182,24 @@ class AppAliasUrl
         }
 
         return ['id' => 0, 'public' => '', 'private' => ''];
+    }
+
+    /**
+     * @param $id
+     * @param $public
+     * @param bool $is_frontend
+     * @return bool
+     */
+    static public function isDuplicate($id, $public, $is_frontend = TRUE)
+    {
+        $model = AliasUrl::find()
+            ->where(" id != " . $id . " ")
+            ->andWhere(['public' => $public])
+            ->andWhere(['is_frontend' => $is_frontend])
+            ->asArray()
+            ->one();
+
+        return (sizeof($model)) ? TRUE : FALSE;
     }
 }
 

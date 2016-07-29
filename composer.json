@@ -2,6 +2,7 @@
   "name": "c006/yii2-alias-url",
   "description": "Supports alias URL's. AKA seo URL's",
   "type": "yii2-extension",
+  "version": "0.1.2",
   "keywords": [
     "yii2",
     "extension",

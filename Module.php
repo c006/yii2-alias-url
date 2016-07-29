@@ -2,13 +2,25 @@
 
 namespace c006\url;
 
+use Yii;
+
+/**
+ * Class Module
+ *
+ * @package c006\cart
+ */
 class Module extends \yii\base\Module
 {
 
+    /**
+     * @var string
+     */
     public $controllerNamespace = 'c006\url\controllers';
 
-    public $is_frontend = TRUE;
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();
@@ -24,8 +36,13 @@ class Module extends \yii\base\Module
     public function createController($route)
     {
         preg_match('/(default)/', $route, $match);
-        if (isset($match[0]))
+        if (isset($match[0])) {
             return parent::createController($route);
+        }
+        $this->defaultRoute = (!$this->defaultRoute || $this->defaultRoute == 'default') ? 'url' : $this->defaultRoute;
+        if (sizeof(explode('/', $route)) > 1) {
+            list($this->defaultRoute, $route) = explode('/', $route);
+        }
 
         return parent::createController("{$this->defaultRoute}/{$route}");
     }

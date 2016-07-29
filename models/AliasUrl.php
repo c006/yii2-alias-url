@@ -44,7 +44,6 @@ class AliasUrl extends ActiveRecord
         return [
             [['private', 'public', 'is_frontend'], 'required'],
             [['private', 'public'], 'string', 'max' => 140],
-            [['public'], 'unique'],
         ];
     }
 

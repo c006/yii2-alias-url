@@ -2,17 +2,6 @@ Yii2  Seo URL's
 ===================
 
 
-**Updated August, 2015**
-
-**Hold off downloading, found a couple of issues**
-
-It does not work the same as the previous versions.
-
-+ Do not use pretty url.
-
-+ ?r=site/about - still works along with the alias
-
-
 Installation
 ------------
 
@@ -41,6 +30,11 @@ to the require section of your `composer.json` file.
 ```
 $ yii migrate --migrationPath=@vendor/c006/yii2-alias-url/migrations
 ```
+
+or if my console is installed
+
+```$ yii migrate2 m000000_000000_c006_url```
+
 
 Setup
 -----
