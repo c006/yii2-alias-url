@@ -3,6 +3,7 @@
   "description": "Supports alias URL's. AKA seo URL's",
   "type": "yii2-extension",
   "version": "2.2",
+  "stability": "stable",
   "keywords": [
     "yii2",
     "extension",
