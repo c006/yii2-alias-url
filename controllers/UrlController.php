@@ -22,7 +22,7 @@ class UrlController extends Controller
 
     function init()
     {
-        if (CoreHelper::checkLogin() && CoreHelper::isGuest()) {
+        if (CoreHelper::checkLogin()) {
             return $this->redirect('/user');
         }
     }
@@ -105,6 +105,7 @@ class UrlController extends Controller
                 Alerts::setAlertType(Alerts::ALERT_WARNING);
                 Alerts::setMessage('Public alias already taken');
             } else {
+                $post['id'] = $id;
                 CoreHelper::saveModelForm('c006\url\models\AliasUrl', $post);
                 Alerts::setAlertType(Alerts::ALERT_SUCCESS);
                 Alerts::setMessage('SUCCESS: Information updated');

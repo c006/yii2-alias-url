@@ -116,6 +116,8 @@ class AppAliasUrl
      */
     static public function addAlias($public, $private, $is_frontend = 1)
     {
+        $public = (substr($public, 1) != '/') ? '/' . $public : $public;
+
         $model = AliasUrl::find()
             ->where(['public' => $public])
             ->asArray()
@@ -199,7 +201,7 @@ class AppAliasUrl
             ->asArray()
             ->one();
 
-        return (sizeof($model)) ? TRUE : FALSE;
+        return (is_array($model) && sizeof($model)) ? TRUE : FALSE;
     }
 }
 
