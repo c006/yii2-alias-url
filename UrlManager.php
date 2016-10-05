@@ -285,7 +285,9 @@ class UrlManager extends Component
             }
             $uri = preg_replace('/[^0-9|a-z|\-|_|\/|\.]/', '', strtolower(rtrim($uri, '/')));
 
-            if (TRUE && $uri && strpos($uri, 'index.php') == FALSE) {
+
+
+            if ($uri && strpos($uri, 'index.php') == FALSE) {
 
                 $model = AliasUrl::find()
                     ->where(['public' => $uri])
