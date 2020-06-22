@@ -2,6 +2,10 @@ Yii2  Seo URL's
 ===================
 
 
+Great way to manage rewrite paths for your website!
+
+
+
 Installation
 ------------
 
@@ -10,13 +14,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-source "c006/yii2-alias-url" "dev-master"
+php composer.phar require --prefer-source "c006/yii2-alias-url" ">=2.1"
 ```
 
 or add
 
 ```
-"c006/yii2-alias-url": "dev-master"
+"c006/yii2-alias-url": ">=2.1"
 ```
 
 to the require section of your `composer.json` file.
@@ -31,7 +35,7 @@ to the require section of your `composer.json` file.
 $ yii migrate --migrationPath=@vendor/c006/yii2-alias-url/migrations
 ```
 
-or if my console is installed
+or -- if using yii2-console, easy to use migration alternative
 
 ```$ yii migrate2 m000000_000000_c006_url```
 
@@ -109,7 +113,7 @@ Go to:
 
 Now `/abc` will display `site/about`
 
-Note private can have a query string.
+Note private can have a dynamic query string.
 >
     public => abc
     private => site/about?id=123

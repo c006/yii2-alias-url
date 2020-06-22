@@ -296,7 +296,7 @@ class UrlManager extends Component
                     ->asArray()
                     ->one();
 
-                if (sizeof($model)) {
+                if (sizeof((array)$model)) {
                     $private = $model['private'];
                     if (stripos($private, '?') != FALSE) {
                         list($private, $qs2) = explode('?', $private);
