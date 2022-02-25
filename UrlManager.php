@@ -234,7 +234,9 @@ class UrlManager extends Component
      */
     public function parseRequest($request)
     {
+
         if ($this->enablePrettyUrl) {
+
             $pathInfo = $request->getPathInfo();
             /* @var $rule UrlRule */
             foreach ($this->rules as $rule) {
@@ -265,26 +267,31 @@ class UrlManager extends Component
             }
 
             return [$pathInfo, []];
+
         } else {
 
-            Yii::trace('Pretty URL not enabled. Using default URL parsing logic.', __METHOD__);
+           // Yii::trace('Pretty URL not enabled. Using default URL parsing logic.', __METHOD__);
             $route = $request->getQueryParam($this->routeParam, '');
 
             if (is_array($route)) {
                 $route = '';
             }
 
-            /* ~ C006 UPDATE */
+
+            /*=== C006 UPDATE ===*/
 //
             $array_qs = [];
             $uri      = $_SERVER['REQUEST_URI'];
             $qs       = '';
+
             if (stripos($uri, '?') != FALSE) {
                 list($uri, $qs) = explode('?', $_SERVER['REQUEST_URI']);
                 $qs = urldecode($qs);
             }
-            $uri = preg_replace('/[^0-9|a-z|\-|_|\/|\.]/', '', strtolower(rtrim($uri, '/')));
 
+            if ($uri != '/') {
+                $uri = preg_replace('/[^0-9|a-z|\-|_|\/|\.]/', '', strtolower(rtrim($uri, '/')));
+            }
 
 
             if ($uri && strpos($uri, 'index.php') == FALSE) {
